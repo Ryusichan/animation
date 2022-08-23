@@ -1,4 +1,5 @@
 import { Hill } from "./hill.js";
+import { SheepController } from "./sheep-controller.js";
 
 class App {
   constructor() {
@@ -13,6 +14,8 @@ class App {
       new Hill("#ff59c2", 0.5, 8),
       new Hill("#ff4674", 1.4, 6),
     ];
+
+    this.sheepController = new SheepController();
 
     // resize 크기 재기
     window.addEventListener("resize", this.resize.bind(this), false);
@@ -32,9 +35,13 @@ class App {
     this.canvas.height = this.stageHeight * 2;
     this.ctx.scale(2, 2);
 
+    // 언덕을 resize event 걸어줌
     for (let i = 0; i < this.hills.length; i++) {
       this.hills[i].resize(this.stageWidth, this.stageHeight);
     }
+
+    // 양을 resize event 걸어줌
+    this.sheepController.resize(this.stageWidth, this.stageHeight);
   }
 
   animate(t) {
@@ -44,8 +51,15 @@ class App {
 
     let dots;
     for (let i = 0; i < this.hills.length; i++) {
+      // 마지막언덕의 좌표에 양을 추가할거니 hill class 에서 return 값으로 받은 언덕의 좌표를
+      // sheepcontroller 에다가 너어줌
       dots = this.hills[i].draw(this.ctx);
     }
+
+    // 양을 animation 추가
+    // t => fps를 위한 t 스템프를 넘겨줌
+    // 관련 참조 https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
+    this.sheepController.draw(this.ctx, t, dots);
   }
 }
 
