@@ -40,7 +40,7 @@ class App {
       this.hills[i].resize(this.stageWidth, this.stageHeight);
     }
 
-    // 양을 resize event 걸어줌
+    // 양때를 resize event 걸어줌
     this.sheepController.resize(this.stageWidth, this.stageHeight);
   }
 
@@ -56,7 +56,7 @@ class App {
       dots = this.hills[i].draw(this.ctx);
     }
 
-    // 양을 animation 추가
+    // 양때 animation 추가
     // t => fps를 위한 t 스템프를 넘겨줌
     // 관련 참조 https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
     this.sheepController.draw(this.ctx, t, dots);
