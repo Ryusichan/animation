@@ -58,7 +58,7 @@ export class Sheep {
     this.x -= this.speed;
     // getY에서 구한 값을 너어줌
     const closest = this.getY(this.x, dots);
-    this.y = closest.y;
+    this.y = closest.y + 40;
 
     ctx.save();
     ctx.translate(this.x, this.y);

@@ -1,6 +1,6 @@
 import { Hill } from "./hill.js";
 import { SheepController } from "./sheep-controller.js";
-
+import { Sun } from "./sun.js";
 class App {
   constructor() {
     this.canvas = document.createElement("canvas");
@@ -16,6 +16,8 @@ class App {
     ];
 
     this.sheepController = new SheepController();
+
+    this.sun = new Sun();
 
     // resize 크기 재기
     window.addEventListener("resize", this.resize.bind(this), false);
@@ -35,6 +37,9 @@ class App {
     this.canvas.height = this.stageHeight * 2;
     this.ctx.scale(2, 2);
 
+    // sun 추가
+    this.sun.resize(this.stageWidth, this.stageHeight);
+
     // 언덕을 resize event 걸어줌
     for (let i = 0; i < this.hills.length; i++) {
       this.hills[i].resize(this.stageWidth, this.stageHeight);
@@ -48,6 +53,9 @@ class App {
     requestAnimationFrame(this.animate.bind(this));
     // 캔버스 이전의 모션 clearRect로 지워줌
     this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight);
+
+    // 태양을 제일아래에 그려줌 위치
+    this.sun.draw(this.ctx, t);
 
     let dots;
     for (let i = 0; i < this.hills.length; i++) {
