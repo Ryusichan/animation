@@ -62,6 +62,8 @@ export class Sheep {
 
     ctx.save();
     ctx.translate(this.x, this.y);
+    // 가져온값만큼 캔버스를 회전시킴
+    ctx.rotate(closest.rotation);
     ctx.fillStyle = "#fff";
     // image를 넣을때 drawImage()를 사용
     // 참조 https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage
@@ -135,9 +137,22 @@ export class Sheep {
   }
 
   getPointOnQuad(x1, y1, x2, y2, x3, y3, t) {
+    // atan2함수를 이용한 각도계산
+    const tx = this.quadTangent(x1, x2, x3, t);
+    const ty = this.quadTangent(y1, y2, y3, t);
+    // 수직의 각도를 구하는방법이니 수평으로 변환하려면 90도를 더해줌
+    // atan2의 리턴값이 (in radians)라서 일반적으로 쓰는 90도를 라디안으로 변환해서 더해줌
+    const rotation = -Math.atan2(tx, ty) + (90 * Math.PI) / 180;
     return {
       x: this.getQuadValue(x1, x2, x3, t),
       y: this.getQuadValue(y1, y2, y3, t),
+      rotation: rotation,
     };
+  }
+
+  // 곡선위의 좌표에 수직으로된 기울기를 찾는방법
+
+  quadTangent(a, b, c, t) {
+    return 2 * (1 - t) * (b - a) + 2 * (c - b) * t;
   }
 }
