@@ -1,4 +1,5 @@
 export class Hill {
+  // 색상, 속도, 언덕경사도 설정
   constructor(color, speed, total) {
     this.color = color;
     this.speed = speed;

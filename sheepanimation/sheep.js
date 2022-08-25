@@ -4,7 +4,7 @@ export class Sheep {
     this.img = img;
 
     // frame 정의
-    this.totalFrame = 8;
+    this.totalFrame = 9;
     this.curFrame = 0;
 
     // 양그림 1장의 크기와 높이
