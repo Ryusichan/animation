@@ -25,6 +25,16 @@ class App {
 
     // request 애니매이션을 시작해줌
     requestAnimationFrame(this.animate.bind(this));
+
+    document.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.pageX;
+      e.pageY;
+      console.log(e.pageX, e.pageY);
+
+      this.sheepController.addSheep(e.pageX, e.pageY);
+      // this.sheepController.click(e);
+    });
   }
 
   //   가변적인 브라우저를 위해 스크린사이즈를 가져오는 함수를 먼저정의
@@ -51,7 +61,7 @@ class App {
 
   animate(t) {
     requestAnimationFrame(this.animate.bind(this));
-    // 캔버스 이전의 모션 clearRect로 지워줌
+    // 캔버스 이전의 모션 clearRect로 지워줌 지우개 같은역활
     this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight);
 
     // 태양을 제일아래에 그려줌 위치

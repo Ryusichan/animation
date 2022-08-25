@@ -21,8 +21,8 @@ export class SheepController {
     this.isLoaded = true;
     this.addSheep();
   }
-  addSheep() {
-    this.items.push(new Sheep(this.img, this.stageWidth));
+  addSheep(clickX, clickY) {
+    this.items.push(new Sheep(this.img, this.stageWidth, clickX, clickY));
   }
   // 양을 그려줌
   draw(ctx, t, dots) {

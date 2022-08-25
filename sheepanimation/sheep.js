@@ -1,6 +1,6 @@
 export class Sheep {
   // 양이 끝쪽에서 등장해야하니 stateWidth 를 받아옴
-  constructor(img, stageWidth) {
+  constructor(img, stageWidth, clickX, clickY) {
     this.img = img;
 
     // frame 정의
@@ -19,6 +19,11 @@ export class Sheep {
     this.x = stageWidth + this.sheepWidth;
     this.y = 0;
 
+    this.shooting = false;
+
+    // console.log("sheep: ", clickX, clickY);
+    this.checkShooting(clickX, clickY);
+
     // 속도를 랜덤으로 정의
     this.speed = Math.random() * 2 + 1;
 
@@ -26,6 +31,22 @@ export class Sheep {
     this.fps = 24;
     // 실제로 보여질 fps시간때
     this.fpsTime = 1000 / this.fps;
+  }
+
+  checkShooting(x, y) {
+    const sheepRect = {
+      x: this.x,
+      y: this.y,
+      x1: this.x + this.sheepWidth,
+      y1: this.y + this.sheepHeight,
+    };
+    if (sheepRect.x < x < sheepRect.x1 && sheepRect.y < y < sheepRect.y1) {
+      this.shooting = true;
+    } else {
+      this.shooting = false;
+    }
+
+    console.log("shooting: ", this.shooting);
   }
 
   draw(ctx, t, dots) {
@@ -49,6 +70,8 @@ export class Sheep {
     }
 
     this.animate(ctx, dots);
+
+    ctx.fillRect(this.x - 100, this.y - 100, this.sheepWidth, this.sheepHeight);
   }
 
   animate(ctx, dots) {
